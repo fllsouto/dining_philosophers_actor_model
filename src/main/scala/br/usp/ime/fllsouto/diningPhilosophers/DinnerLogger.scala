@@ -1,4 +1,4 @@
-package br.usp.ime.fllsouto.dinningActors
+package br.usp.ime.fllsouto.diningPhilosophers
 
 import java.io._
 import akka.actor._

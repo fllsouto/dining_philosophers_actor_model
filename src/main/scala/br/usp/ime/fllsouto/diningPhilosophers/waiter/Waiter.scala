@@ -1,6 +1,6 @@
-package br.usp.ime.fllsouto.dinningActors.waiter
+package br.usp.ime.fllsouto.diningPhilosophers.waiter
 
-import br.usp.ime.fllsouto.dinningActors._
+import br.usp.ime.fllsouto.diningPhilosophers._
 import akka.actor._
 import akka.util.Timeout
 import akka.pattern.ask

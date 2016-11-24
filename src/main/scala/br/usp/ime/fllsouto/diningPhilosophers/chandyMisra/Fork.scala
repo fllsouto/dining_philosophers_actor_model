@@ -1,6 +1,6 @@
-package br.usp.ime.fllsouto.dinningActors.chandyMisra
+package br.usp.ime.fllsouto.diningPhilosophers.chandyMisra
 
-import br.usp.ime.fllsouto.dinningActors._
+import br.usp.ime.fllsouto.diningPhilosophers._
 import akka.actor._
 
 // Fork Messages

@@ -1,6 +1,6 @@
-package br.usp.ime.fllsouto.dinningActors.resourceHierarchy
+package br.usp.ime.fllsouto.diningPhilosophers.resourceHierarchy
 
-import br.usp.ime.fllsouto.dinningActors._
+import br.usp.ime.fllsouto.diningPhilosophers._
 import akka.actor._
 
 case class Take(philo: ActorRef)

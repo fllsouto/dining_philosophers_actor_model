@@ -1,14 +1,14 @@
-package br.usp.ime.fllsouto.dinningActors
+package br.usp.ime.fllsouto.diningPhilosophers
 
-import br.usp.ime.fllsouto.dinningActors.resourceHierarchy._
-import br.usp.ime.fllsouto.dinningActors.waiter._
-import br.usp.ime.fllsouto.dinningActors.chandyMisra._
+import br.usp.ime.fllsouto.diningPhilosophers.resourceHierarchy._
+import br.usp.ime.fllsouto.diningPhilosophers.waiter._
+import br.usp.ime.fllsouto.diningPhilosophers.chandyMisra._
 import akka.actor._
 import scala.concurrent.duration._
 
 case class StartDinner()
-//sbt "run-main br.usp.ime.fllsouto.dinningActors.DinningPhilosophers foo"
-object DinningPhilosophers {
+//sbt "run-main br.usp.ime.fllsouto.diningPhilosophers.DinningPhilosophers foo"
+object DiningPhilosophers {
 
   val system = ActorSystem()
 
