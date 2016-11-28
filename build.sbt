@@ -8,7 +8,7 @@ lazy val commonSettings = Seq(
 lazy val root = (project in file(".")).
   settings(commonSettings: _*).
   settings(
-    name := "dinningActors",
+    name := "dinningPhilosophers",
     organization := "br.usp.ime.fllsouto",
     sbtVersion := "0.13.12",
     resolvers += "Typesafe Repository" at "http://repo.typesafe.com/typesafe/releases/",
