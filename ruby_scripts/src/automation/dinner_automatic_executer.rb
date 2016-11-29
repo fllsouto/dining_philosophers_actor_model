@@ -1,14 +1,16 @@
 # encoding: UTF-8
 require 'pry'
 require 'benchmark'
+require_relative '../helpers/file_manipulator'
 
 class DinnerAutomaticExecuter
+  include FileManipulator
 
   def initialize debug=false
     @debug = debug
     @algorithms = {
       # waiter: "W",
-      # resource: "R"
+      # resource: "R",
       chandymisra: "C"
     }
 
@@ -24,9 +26,8 @@ class DinnerAutomaticExecuter
       hdr: {key: "Hundred", min:1, max: 5},
       fixed: {key: "Fixed", min:0, max: 1},
     }
-    output_filepath = "/home/fsouto/Study/ime-usp/tcc/dining_actors_https/dinning_simulation/simulation_output/log"
-    output_filename = "Outputtest-#{Time.now.to_i}.txt"
-    @filename = "#{output_filepath}/#{output_filename}"
+
+    @filename = simulation_output_log
   end
 
   def run_simulation option=:fixed
@@ -82,7 +83,7 @@ class DinnerAutomaticExecuter
 
   def exec_command alg, option, sim_t
     puts "Starting simulation at: #{Time.now}"
-    cmd = "sbt \"run-main br.usp.ime.fllsouto.dinningActors.DinningPhilosophers #{sim_t} #{alg} #{option}\""
+    cmd = "sbt \"run-main br.usp.ime.fllsouto.diningPhilosophers.DiningPhilosophers #{sim_t} #{alg} #{option}\""
     puts "Command : #{cmd}"
     result = nil
     time = Benchmark.measure {
@@ -115,13 +116,10 @@ class DinnerAutomaticExecuter
 end
 
 class LogFileOperator
-  
-  ROOT_PROJECT_PATH = "/home/fsouto/Study/ime-usp/tcc/dining_actors_https"
-  PROJECT_FOLDER = "dinning_simulation"
-  SIMULATION_OUTPUT_FOLDER = "simulation_output/data"
+  include FileManipulator
 
-  def initialize simulations_output
-    @simulations = simulations_output
+  def initialize simulations_data
+    @simulations = simulations_data
   end
 
   attr_reader :outputs
@@ -141,8 +139,8 @@ class LogFileOperator
     puts "\n"
     @outputs.each do |file|
       puts "Moving file #{file} ..."
-      src = simulation_raw_log(file)
-      dest = "#{ROOT_PROJECT_PATH}/#{PROJECT_FOLDER}/#{SIMULATION_OUTPUT_FOLDER}/#{file}"
+      src = simulation_raw_data_in(file)
+      dest = simulation_raw_data_out(file)
       FileUtils.mv(src, dest)
     end
     puts "All files moved!"
