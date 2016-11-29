@@ -141,7 +141,7 @@ class LogFileOperator
     puts "\n"
     @outputs.each do |file|
       puts "Moving file #{file} ..."
-      src = "#{ROOT_PROJECT_PATH}/#{file}"
+      src = simulation_raw_log(file)
       dest = "#{ROOT_PROJECT_PATH}/#{PROJECT_FOLDER}/#{SIMULATION_OUTPUT_FOLDER}/#{file}"
       FileUtils.mv(src, dest)
     end
