@@ -1,7 +1,8 @@
 # encoding: UTF-8
-#TODO change name!!!
+
 require 'multi_json'
 require 'pry'
+require_relative '../helpers/file_manipulator'
 
 class Philolog
   attr_reader :name
@@ -129,7 +130,7 @@ class Philolog
 
 end
 
-class DinningLogParser
+class DiningLogParser
   attr_accessor :philos, :data_hash
   def initialize filename
     @filename = filename
@@ -193,7 +194,6 @@ private
 
   def parse_philo_data data_hash
     philo_array = (create_philo_array data_hash).sort{|a,b| a.position <=> b.position}
-    # philo_array.each { |p| puts "#{p.to_s}"} # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
   end
 
   def create_philo_array raw_data
@@ -219,16 +219,13 @@ private
 end
 
 class DinningLog
-
-  ROOT_PROJECT_PATH = "/home/fsouto/Study/ime-usp/tcc/dining_actors_https"
-  PROJECT_FOLDER = "dinning_simulation"
-  METRIC_OUTPUT_FOLDER = "metric_input/"
+  include FileManipulator
 
   attr_accessor :dlps
   def initialize filenames
     @filenames = filenames
     @dlps = []
-    @filenames.each { |filename| @dlps << DinningLogParser.new(filename) }
+    @filenames.each { |filename| @dlps << DiningLogParser.new(filename) }
   end
 
   def parse_files
@@ -237,19 +234,16 @@ class DinningLog
 
 
   def write_metric_input metric
+    filename = metric_output_data(metric)
     case metric
     when :eating_times
-      filename = "#{ROOT_PROJECT_PATH}/#{PROJECT_FOLDER}/#{METRIC_OUTPUT_FOLDER}/#{metric}.json"
       save_data_to_file(filename, eating_times.to_json)
     when :blocked_times
-      filename = "#{ROOT_PROJECT_PATH}/#{PROJECT_FOLDER}/#{METRIC_OUTPUT_FOLDER}/#{metric}.json"
       save_data_to_file(filename, blocked_times.to_json)
     when :waiting_avg
-      filename = "#{ROOT_PROJECT_PATH}/#{PROJECT_FOLDER}/#{METRIC_OUTPUT_FOLDER}/#{metric}.json"
       save_data_to_file(filename, waiting_avg.to_json)
     end
 
-      
   end
 
 private
@@ -284,15 +278,24 @@ private
 
 end
 
-FILEPATH = "/home/fsouto/Study/ime-usp/tcc/dining_actors_https/dinning_simulation/simulation_output/data"
+class DinnerLogMetricParser
+  include FileManipulator
 
-filenames = `ls -A1 #{FILEPATH} | grep .json`.split("\n").map {|f| "#{FILEPATH}/#{f}"}
+  def initialize
+    filepath = simulation_raw_data_folder
+    @metrics = [:eating_times, :blocked_times, :waiting_avg]
+    @filenames = `ls -A1 #{filepath} | grep .json`.split("\n").map {|f| "#{filepath}/#{f}"}
+  end
+    
+  def parse_metrics
+    @metrics.each do |metric|
+      dl = DinningLog.new(@filenames)
+      dl.parse_files
+      dl.write_metric_input metric
+    end
+  end
 
-metrics = [:eating_times, :blocked_times, :waiting_avg]
-dls = []
-metrics.each do |metric|
-  dl = DinningLog.new(filenames)
-  dl.parse_files
-  dl.write_metric_input metric
-  dls << dl
 end
+
+dlmp = DinnerLogMetricParser.new
+dlmp.parse_metrics

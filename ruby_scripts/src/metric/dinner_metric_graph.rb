@@ -2,17 +2,15 @@
 require 'pry'
 require_relative 'data_formatter.rb'
 require_relative 'metric_graph.rb'
+require_relative '../helpers/file_manipulator'
 
 
-class DinningMetric
-
-  ROOT_PROJECT_PATH = "/home/fsouto/Study/ime-usp/tcc/dining_actors_https"
-  PROJECT_FOLDER = "dinning_simulation"
-  METRIC_OUTPUT_FOLDER = "metric_input/"
+class DinnerMetricGraph
+  include FileManipulator
 
   def initialize metric
     @metric = metric
-    @filename = "#{ROOT_PROJECT_PATH}/#{PROJECT_FOLDER}/#{METRIC_OUTPUT_FOLDER}/#{metric}.json"
+    @filename = metric_output_data(metric)
   end
 
   def plot_graph
@@ -32,6 +30,6 @@ end
 
 metrics = ["eating_times", "blocked_times", "waiting_avg"]
 metrics.each do |metric|
-  dm = DinningMetric.new metric
+  dm = DinnerMetricGraph.new metric
   dm.plot_graph
 end
