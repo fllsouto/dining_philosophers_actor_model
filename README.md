@@ -78,7 +78,7 @@ sbt "run-main br.usp.ime.fllsouto.diningPhilosophers.DinningPhilosophers <T> <A>
 sbt "run-main br.usp.ime.fllsouto.diningPhilosophers.DinningPhilosophers 3600 C Y"
 ```
 
-### By simulation menu, only one simulation
+### By menu, only one simulation
 
 ```bash
 sbt "run-main br.usp.ime.fllsouto.diningPhilosophers.DinningPhilosophers"
@@ -101,7 +101,17 @@ ruby ruby_scripts/src/automation/dinner_automatic_executer.rb <debug>
 
 
 ## How to generate graphics
-```
+```bash
+#Generate simulation data
+ruby ruby_scripts/src/automation/dinner_automatic_executer.rb <debug>
 
+# Parse the data in the root project directory and produce .Json files with the parsed data in folder metric_input
+ruby ruby_scripts/src/parser/dinner_log_metric_parser.rb
+
+# Creates combo chart graphics using .Json data and Google Charts API
+ruby ruby_scripts/src/metric/dinner_metric_graph.rb
+
+# The graphics will be placed on ruby_scripts/pages
+```
 
 By Fellipe S Sampaio
