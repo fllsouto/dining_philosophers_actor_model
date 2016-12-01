@@ -2,7 +2,7 @@
 
 ## About
 
-This software was developed as a final project for Computer Science  course at IME-USP. They consist in a study about concurrency, focused on Actor Model and It's implementation using Akka Framework, applied to Dinner Philosophers problem and its resource sharing competition.
+This software was developed as a final project for Computer Science  course at IME-USP. It consist in a study about concurrency, focused in Actor Model and It's implementation using Akka Framework, applied to Dinner Philosophers problem and its resource sharing competition.
 
 My personal page with my monography (in Brazilian Portuguese) can be [found here](https://www.linux.ime.usp.br/~fsouto/mac0499/). My personal contact is fllsouto@gmail.com or @soutofx on Twitter.
 
@@ -13,21 +13,21 @@ My personal page with my monography (in Brazilian Portuguese) can be [found here
 ```bash
 # In project root folder
 
-# Installing Java 8
+# It will install Java 8
 
 sudo add-apt-repository ppa:webupd8team/java
 sudo apt-get update
 sudo apt-get install oracle-java8-installer
 java -version
 
-# Installing Sbt (Scala build tool)
+# It will install Sbt (Scala build tool)
 
 echo "deb https://dl.bintray.com/sbt/debian /" | sudo tee -a /etc/apt/sources.list.d/sbt.list
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2EE0EA64E40A89B84B2DF73499E82A75642AC823
 sudo apt-get update
 sudo apt-get install sbt
 
-# Will install Scala, Akka and another dependencies
+# It will install Scala, Akka and another dependencies
 sbt
 
 ```
@@ -111,7 +111,7 @@ ruby ruby_scripts/src/parser/dinner_log_metric_parser.rb
 # Creates combo chart graphics using .Json data and Google Charts API
 ruby ruby_scripts/src/metric/dinner_metric_graph.rb
 
-# The graphics will be placed on ruby_scripts/pages
+# The graphics will be placed on ruby_scripts/pages as .html files
 ```
 
 By Fellipe S Sampaio
